@@ -1,34 +1,34 @@
 # Sample Ansible playbook for installing ScaleFT agent and enrolling into corresponding project
 # using 'apt-get' on Ubuntu and Debian
 
-  - name: ASA Server install - use to install ASA agent on PROD servers
-# !! Be sure to change 'prod_servers' to your list of hosts here:
-    hosts: prod_servers
-    become: true
-    become_user: root
-    tasks:
+- name: ASA Server install - use to install ASA agent on PROD servers
+  hosts: all
+  become: true
+  become_user: root
+  tasks:
     
 #Add scaleft repository into the sources list
         - apt_repository:
               repo: deb http://pkg.scaleft.com/deb linux main
               state: present           
-         
+
+#Complete the install
         - name: Trust the repository signing key
-           apt_key:
+          apt_key:
               url: https://dist.scaleft.com/pki/scaleft_deb_key.asc
               state: present
           
         - name: Update apt about new packages in seperate step
-            apt:
+          apt:
               update_cache: yes
           
         - name: Install scaleft-server-tools
-            apt:
+          apt:
               name: scaleft-server-tools
               state: present
 
         - name: create the sftd directory for enrollment.token
-            file:
+          file:
               path: /var/lib/sftd
               owner: root
               group: root
@@ -41,7 +41,7 @@
  # the 'fetch' module.
  
         - name: Copy the enrollment token from network share to sftd directory
-            copy:
+          copy:
               src: /path/to/enrollment.token
   # Or instead of using a file, you can put the token string directly in the playbook 
   # (replace the src line above with the following content entry):
