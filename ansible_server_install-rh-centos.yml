@@ -1,6 +1,5 @@
 # Sample Ansible playbook for installing ScaleFT agent and enrolling into corresponding project
-#
-# Play1 - ASA install
+# using 'yum' on CentOS, RedHat, and Fedora
 
   - name: ASA Server install - use to install ASA agent on PROD servers
 # !! Be sure to change 'prod_servers' to your list of hosts here:
