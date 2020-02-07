@@ -5,7 +5,10 @@ echo "Add an enrollment token"
 sudo mkdir -p /var/lib/sftd
 
 # get enrollment token from app.scaleft.com
-echo "eyJzIjoiYTc3MjA5MmMtMzhhOC00ZWI2LTg1ZTQtMDI2YWU5NjlmOWMzIiwidSI6Imh0dHBzOi8vYXBwLnNjYWxlZnQuY29tIn0=" | sudo tee /var/lib/sftd/enrollment.token
+# Be sure to replace the <<REPLACE WITH YOUR ENROLLMENT TOKEN>> variable below with your
+# enrollment token
+
+echo "<<REPLACE WITH YOUR ENROLLMENT TOKEN>>" | sudo tee /var/lib/sftd/enrollment.token
 
 export DEBIAN_FRONTEND=noninteractive
 
