@@ -1,8 +1,8 @@
 {
 	"info": {
 		"_postman_id": "689401ec-d09d-465f-8712-68c9a742fd05",
-		"name": "August 2019 ASA API Lab",
-		"description": "This collection contains a list of endpoints that we'll be working with during the 2019 Global SE training event. It is intentionally not a complete collection of all ASA endpoints. Some ASA endpoints are only meant to be accessed by Okta support and ASA developers.",
+		"name": "Okta Advanced Server Access - API collection",
+		"description": "This sample collection contains a list of commonly used ASA endpoints.  Okta support and engineering endpoints have been intentionally disabled or removed within this collection.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
