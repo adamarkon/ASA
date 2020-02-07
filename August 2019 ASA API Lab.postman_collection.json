@@ -1,0 +1,1094 @@
+{
+	"info": {
+		"_postman_id": "689401ec-d09d-465f-8712-68c9a742fd05",
+		"name": "August 2019 ASA API Lab",
+		"description": "This collection contains a list of endpoints that we'll be working with during the 2019 Global SE training event. It is intentionally not a complete collection of all ASA endpoints. Some ASA endpoints are only meant to be accessed by Okta support and ASA developers.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get a list of users in a Team",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a list of users associated with a project",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/projects/{{projectName}}/server_users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"projects",
+								"{{projectName}}",
+								"server_users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a list of users in a Team with parameters",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/users?include_service_users=true&starts_with=&status=DELETED&contains=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"users"
+							],
+							"query": [
+								{
+									"key": "include_service_users",
+									"value": "true"
+								},
+								{
+									"key": "starts_with",
+									"value": ""
+								},
+								{
+									"key": "status",
+									"value": "DELETED"
+								},
+								{
+									"key": "contains",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"alice\",\n    \"auth_type\": \"okta\",\n    \"auth_details\": {\n        \"subject\": \"null\",\n        \"nameid\": \"null\"\n    },\n    \"user_details\": {\n        \"first_name\": \"Alice\",\n        \"last_name\": \"Smith\",\n        \"full_name\": \"Alice Smith\",\n        \"email\": \"alice.smith@example.com\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify a user in a project",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n{\n\t\"server_user_name\": \"scott_spencer\",\n\t\"1windows_server_user_name\": \"scott_spencer\",\n\t\"uid\": 60001,\n\t\"1field that does nothing\": \"this is a comment\"\n\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/projects/{{projectName}}/server_users/{{user_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"projects",
+								"{{projectName}}",
+								"server_users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify a user in a Team",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"alice1\",\n    \"status\": \"ACTIVE\",\n    \"details\": {\n        \"first_name\": \"a\",\n        \"last_name\": \"a\",\n        \"full_name\": \"a\",\n        \"email\": \"sea@example.com\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/users/alice1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"users",
+								"alice1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Fetch events from a Team",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/audits?after_time=2019-07-05T00:00:00Z",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"audits"
+							],
+							"query": [
+								{
+									"key": "after_time",
+									"value": "2019-07-05T00:00:00Z"
+								},
+								{
+									"key": "projects",
+									"value": "exploration",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all events from a Team",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/auditsV2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"auditsV2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Get a list of projects from a Team",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{bearer_token}}",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/projects",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"projects"
+							]
+						},
+						"description": "Fetch projects from a Team"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"se_training\",\n\t\"force_shared_ssh_users\": false,\n\t\"shared_admin_user_name\": null,\n\t\"shared_standard_user_name\": null,\n\t\"create_server_users\": true,\n\t\"require_preauth_for_creds\": false\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/projects/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"projects",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Modify a project",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"create_server_users\": false\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/projects/{{projectName}}?",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"projects",
+								"{{projectName}}"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a cloud account to project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"provider\": \"aws\",\n    \"account_id\": \"716014510346\",\n    \"description\": \"An AWS ID.\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/projects/{{projectName}}/cloud_accounts",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"projects",
+								"{{projectName}}",
+								"cloud_accounts"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Enrollment Tokens",
+			"item": [
+				{
+					"name": "Get a list of enrollment tokens for a project",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/projects/{{projectName}}/server_enrollment_tokens",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"projects",
+								"{{projectName}}",
+								"server_enrollment_tokens"
+							]
+						},
+						"description": "\t"
+					},
+					"response": []
+				},
+				{
+					"name": "Create an enrollment token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"description\":\"Token Name\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/projects/{{projectName}}/server_enrollment_tokens",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"projects",
+								"{{projectName}}",
+								"server_enrollment_tokens"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "Get groups from a project",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/projects/{{projectName}}/groups",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"projects",
+								"{{projectName}}",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a group to a project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"group\": \"owners\",\n    \"server_access\": false,\n    \"server_admin\": true\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/projects/{{projectName}}/groups",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"projects",
+								"{{projectName}}",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"lab_group\",\n    \"roles\": [\n        \"access_user\",\n        \"access_admin\"\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/groups",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a group",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/groups/{{groupName}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"groups",
+								"{{groupName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a group from a project",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/projects/{{projectName}}/groups/{{groupName}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"projects",
+								"{{projectName}}",
+								"groups",
+								"{{groupName}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get List of Groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/groups",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"groups"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Servers",
+			"item": [
+				{
+					"name": "Get a list of servers in a project",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/projects/{{projectName}}/servers/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"projects",
+								"{{projectName}}",
+								"servers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a list of servers in a team",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/servers?hostname=sharepoint",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"servers"
+							],
+							"query": [
+								{
+									"key": "hostname",
+									"value": "sharepoint"
+								},
+								{
+									"key": "os_type",
+									"value": "windows",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a server from a project",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/projects/{{projectName}}/servers/{{server_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"projects",
+								"{{projectName}}",
+								"servers",
+								"{{server_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reassign a server to a new project",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"project_name\": \"windows_servers\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/projects/{{projectName}}/servers/{{server_id}}/reassign",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"projects",
+								"{{projectName}}",
+								"servers",
+								"{{server_id}}",
+								"reassign"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Clients",
+			"item": [
+				{
+					"name": "Get a list of enrolled clients",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{bearer_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/devices/clients?",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"devices",
+								"clients"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a client",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/clients/{{clientId}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"clients",
+								"{{clientId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pre-Authorization",
+			"item": [
+				{
+					"name": "Get a list of pre-authorizations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/preauthorizations",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"preauthorizations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a pre-authorization",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_name\": \"{{user_id}}\",\n    \"expires_at\": \"2019-09-01T19:13:03.918242876Z\",\n    \"disabled\": false,\n    \"projects\": [\n        \"{{projectName}}\"\n    ],\n    \"servers\": []\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/preauthorizations",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"preauthorizations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a pre-authorization",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_name\": \"{{user_id}}\",\n    \"expires_at\": \"2019-08-02T19:13:03.918242876Z\",\n    \"disabled\": false,\n    \"projects\": [\n        \"{{projectName}}\"\n    ],\n    \"servers\": []\n}"
+						},
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/preauthorizations/{{preauthorization_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"preauthorizations",
+								"{{preauthorization_id}}"
+							]
+						},
+						"description": "\t"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Misc",
+			"item": [
+				{
+					"name": "Get notifiers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/notifiers",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"notifiers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get API User Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/user_info",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"user_info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get list of services from team",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/client_config_options",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"client_config_options"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Team settings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{url}}/v1/teams/{{teamName}}/settings",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"teams",
+								"{{teamName}}",
+								"settings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Fetch bearer_token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3f4e04e8-46cf-49a2-9177-cbb4364d2840",
+						"exec": [
+							"pm.test(\"all is good\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.environment.set(\"bearer_token\", jsonData.bearer_token);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "15072978-4799-4451-bd60-da839ba2668d",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"key_id\": \"{{key_id}}\",\n    \"key_secret\": \"{{key_secret}}\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/v1/teams/{{teamName}}/service_token",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"v1",
+						"teams",
+						"{{teamName}}",
+						"service_token"
+					]
+				},
+				"description": "Fetch a bearer_token. This is the first step in all ASA activity."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{bearer_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "71b61b0f-22be-47fc-9d4e-e67d814be542",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "83d708b9-bf4f-4025-ad6a-4515fb430749",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "228702da-d812-4917-9d53-8a62f7c6fba7",
+			"key": "key_secret",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "800454a0-4bbf-4290-a6c5-0dc5918a9a50",
+			"key": "key_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "569edf0e-db05-45ef-9f67-5ac14cd358f7",
+			"key": "teamName",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "76810763-a810-4e0d-866a-c1aa63700066",
+			"key": "url",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
