@@ -1,0 +1,26 @@
+# Use this to populate ASA servers in PuTTY.
+#
+
+# Remove old ASA-* entries.
+Get-ChildItem HKCU:\Software\SimonTatham\PuTTY\Sessions\ASA-* | %{Remove-Item $_.PSPath}
+
+# Get the proxycommand public host key.
+$hostKey = (Get-Content -Tail 1 $env:LOCALAPPDATA\ScaleFT\proxycommand_known_hosts).Split()[-1].Replace('=','\=')
+
+$Servers = sft list-servers -l os_type=linux -o json | ConvertFrom-Json
+
+ForEach ($server in $Servers) {
+
+$RegPath = "HKCU:\Software\SimonTatham\PuTTY\Sessions\ASA-$($server.hostname)"
+# Remark the above line and use this to include project name in profile name.
+#$RegPath = "HKCU:\Software\SimonTatham\PuTTY\Sessions\ASA-$($server.project_name)%2F$($server.hostname)"
+
+Copy-Item HKCU:\Software\SimonTatham\PuTTY\Sessions\Default%20Settings $RegPath
+
+Set-ItemProperty $RegPath -name HostName -value $server.hostname
+Set-ItemProperty $RegPath -name ProxyMethod -value 5
+Set-ItemProperty $RegPath -name UserName -value "ASA-Login"
+Set-ItemProperty $RegPath -name WinTitle -value "ASA $($server.hostname)"
+Set-ItemProperty $RegPath -name ProxyTelnetCommand -value "sft.exe proxycommand $($server.hostname)"
+Set-ItemProperty $RegPath -name SSHManualHostKeys -value $hostKey
+}
